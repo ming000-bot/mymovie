@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== 验证码遮罩层（全屏覆盖，z-index 最高） ===== */
+      
         #verifyOverlay {
             position: fixed;
             top: 0;
@@ -116,7 +116,7 @@
             min-height: 22px;
         }
 
-        /* ===== 主页面（验证通过后显示） ===== */
+        
         .main-page {
             padding: 30px 20px;
             max-width: 1400px;
@@ -124,7 +124,7 @@
             display: none;
         }
 
-        /* ===== 头部 ===== */
+      
         .header-wrap {
             display: flex;
             align-items: center;
@@ -207,7 +207,7 @@
             border-color: #1a4fcc;
         }
 
-        /* ===== 影片网格 ===== */
+       
         .movie-grid {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
@@ -233,7 +233,7 @@
             object-fit: cover;
             margin-bottom: 10px;
             background: #0a142b;
-            /* 图片加载失败时显示底色 */;
+            
         }
 
         .movie-name {
@@ -246,7 +246,7 @@
             color: #2a6aff;
         }
 
-        /* ===== 分页 ===== */
+        
         .page-box {
             display: grid;
             grid-template-columns: repeat(20, 1fr);
@@ -662,17 +662,15 @@
     </script>
 
     <script>
-        // ============================================================
-        //  验证码逻辑
-        // ============================================================
+
         (function() {
             const overlay = document.getElementById('verifyOverlay');
             const verifyInput = document.getElementById('verifyInput');
             const verifyBtn = document.getElementById('verifyBtn');
             const verifyError = document.getElementById('verifyError');
             const mainPage = document.getElementById('mainPage');
-            const __part1 = [65, 98, 99]; // A, b, c
-            const __part2 = [64, 50, 48, 50, 56, 33]; // @, 2, 0, 2, 8, !
+            const __part1 = [65, 98, 99]; 
+            const __part2 = [64, 50, 48, 50, 56, 33]; 
             const CORRECT_CODE = String.fromCharCode.apply(null, __part1.concat(__part2)); 
 
             function verifySuccess() {
@@ -712,9 +710,7 @@
             verifyInput.focus();
         })();
 
-        // ============================================================
-        //  主页面逻辑
-        // ============================================================
+
 
         const pageSize = 40;
         let currentPage = 1;
@@ -727,7 +723,7 @@
         const movieCountEl = document.getElementById("movieCount");
         const closeBtn = document.getElementById("closeVideoBtn");  // 获取关闭按钮
 
-        // ===== 影片信息相关 =====
+        
         const videoInfo = document.getElementById("videoInfo");
         const videoTitle = document.getElementById("videoTitle");
         const copyBtn = document.getElementById("copyBtn");
@@ -739,7 +735,7 @@
         let hideTimer = null;
         let copyTimer = null;
 
-        // ---- 显示影片信息 ----
+        
         function showVideoInfo(title, src) {
             if (!title) title = '未知影片';
             currentVideoTitle = title;
@@ -757,7 +753,7 @@
             resetHideTimer();
         }
 
-        // ---- 隐藏影片信息 ----
+        
         function hideVideoInfo() {
             videoInfo.style.display = 'none';
             isInfoVisible = false;
@@ -839,10 +835,7 @@
 
         copyBtn.addEventListener('click', handleCopy);
 
-        /**
-         * 图片加载失败时，替换为同目录下的默认图片
-         * 注意：请在 HTML 同目录下放置 default.jpg 作为默认海报
-         */
+
         function handleImageError(img) {
             // 防止无限循环
             img.onerror = null;
@@ -1008,9 +1001,7 @@
             }
         });
 
-        // ============================================================
-        //  播放器快捷键：空格 左右 上下 F
-        // ============================================================
+
 
         document.addEventListener('keydown', function(e) {
             if (pop.style.display !== 'flex') return; // 仅当弹窗显示时
@@ -1065,9 +1056,6 @@
             }
         });
 
-        // ============================================================
-        //  绑定搜索事件
-        // ============================================================
 
         searchBox.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
@@ -1081,9 +1069,6 @@
             handleSearch();
         });
 
-        // ============================================================
-        //  初始化渲染
-        // ============================================================
 
         renderCurrentPage();
     </script>
