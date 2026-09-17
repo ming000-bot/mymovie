@@ -1,4 +1,3 @@
-// 数据分片 B（自动生成，请勿手动编辑）
 const partB = [
   "VvLzIwMjQvMDIvMTUvZjdlYjhiNzY3MjM5N",
   "VvLzIwMjQvMDIvMTUvODE0YTU1YTg5MjdmY",
