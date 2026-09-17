@@ -1,4 +1,3 @@
-// 数据分片 C（自动生成，请勿手动编辑）
 const partC = [
   "Tg2ZmE1M2VlY2VlMDUwYmIzOTYubTN1OA==",
   "jQ2OTU2ZDNmYjAzNzNmYzc0YTAubTN1OA==",
