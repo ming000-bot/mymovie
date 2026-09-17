@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== 验证码遮罩层（全屏覆盖，z-index 最高） ===== */
         #verifyOverlay {
             position: fixed;
             top: 0;
@@ -116,7 +115,6 @@
             min-height: 22px;
         }
 
-        /* ===== 主页面（验证通过后显示） ===== */
         .main-page {
             padding: 30px 20px;
             max-width: 1400px;
@@ -124,7 +122,6 @@
             display: none;
         }
 
-        /* ===== 头部 ===== */
         .header-wrap {
             display: flex;
             align-items: center;
@@ -207,7 +204,6 @@
             border-color: #1a4fcc;
         }
 
-        /* ===== 影片网格 ===== */
         .movie-grid {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
@@ -246,7 +242,6 @@
             color: #2a6aff;
         }
 
-        /* ===== 分页 ===== */
         .page-box {
             display: grid;
             grid-template-columns: repeat(20, 1fr);
@@ -284,7 +279,6 @@
             box-shadow: 0 0 12px #2a6aff88;
         }
 
-        /* ===== 视频弹窗 ===== */
         .video-pop {
             position: fixed;
             top: 0;
@@ -325,7 +319,6 @@
             user-select: none;
         }
 
-        /* ===== 影片信息浮层（左上角名称 + 复制按钮） ===== */
         .video-info {
             position: absolute;
             top: 30px;
@@ -380,7 +373,6 @@
         }
 
 
-        /* ===== 响应式适配 ===== */
         @media (max-width: 1024px) {
             .movie-grid {
                 grid-template-columns: repeat(4, 1fr);
@@ -579,7 +571,6 @@
             }
         }
 
-        /* ===== 当视频全屏时，覆盖样式让视频填满屏幕 ===== */
         video:fullscreen {
             width: 100vw;
             height: 100vh;
@@ -612,7 +603,6 @@
 </head>
 <body>
 
-    <!-- ===== 验证码遮罩层 ===== -->
     <div id="verifyOverlay">
         <div class="verify-box">
             <h2>🔐 验证访问</h2>
@@ -625,7 +615,6 @@
         </div>
     </div>
 
-    <!-- ===== 主页面 ===== -->
     <div class="main-page" id="mainPage">
         <div class="header-wrap">
             <div class="title-group">
@@ -642,11 +631,9 @@
         <div class="page-box" id="pageBox"></div>
     </div>
 
-    <!-- ===== 视频弹窗 ===== -->
     <div class="video-pop" id="videoPop">
         <span class="close-video" id="closeVideoBtn">×</span>
 
-        <!-- 影片信息浮层 -->
         <div class="video-info" id="videoInfo">
             <div class="video-title" id="videoTitle"></div>
             <button class="copy-btn" id="copyBtn">复制</button>
@@ -657,24 +644,21 @@
         </div>
     </div>
 
-    <!-- ===== 外部影片数据（base64 分段加载） ===== -->
     <script src="other/data-partA.js"></script>
     <script src="other/data-partB.js"></script>
     <script src="other/data-partC.js"></script>
     <script src="other/data-builder.js"></script>
 
     <script>
-        // ============================================================
-        //  验证码逻辑
-        // ============================================================
+
         (function() {
             const overlay = document.getElementById('verifyOverlay');
             const verifyInput = document.getElementById('verifyInput');
             const verifyBtn = document.getElementById('verifyBtn');
             const verifyError = document.getElementById('verifyError');
             const mainPage = document.getElementById('mainPage');
-            const __part1 = [97, 98, 99]; // A, b, c
-            const __part2 = [64, 50, 48, 50, 56, 33]; // @, 2, 0, 2, 8, !
+            const __part1 = [97, 98, 99]; 
+            const __part2 = [64, 50, 48, 50, 56, 33]; 
             const CORRECT_CODE = String.fromCharCode.apply(null, __part1.concat(__part2)); 
 
             function verifySuccess() {
@@ -714,9 +698,6 @@
             verifyInput.focus();
         })();
 
-        // ============================================================
-        //  主页面逻辑
-        // ============================================================
 
         const pageSize = 40;
         let currentPage = 1;
@@ -729,7 +710,7 @@
         const movieCountEl = document.getElementById("movieCount");
         const closeBtn = document.getElementById("closeVideoBtn");  // 获取关闭按钮
 
-        // ===== 影片信息相关 =====
+
         const videoInfo = document.getElementById("videoInfo");
         const videoTitle = document.getElementById("videoTitle");
         const copyBtn = document.getElementById("copyBtn");
@@ -741,7 +722,7 @@
         let hideTimer = null;
         let copyTimer = null;
 
-        // ---- 显示影片信息 ----
+
         function showVideoInfo(title, src) {
             if (!title) title = '未知影片';
             currentVideoTitle = title;
@@ -759,7 +740,7 @@
             resetHideTimer();
         }
 
-        // ---- 隐藏影片信息 ----
+
         function hideVideoInfo() {
             videoInfo.style.display = 'none';
             isInfoVisible = false;
@@ -769,7 +750,7 @@
             }
         }
 
-        // ---- 重置计时器（鼠标移动时调用） ----
+
         function resetHideTimer() {
             if (hideTimer) {
                 clearTimeout(hideTimer);
@@ -782,7 +763,7 @@
             }, 3000);
         }
 
-        // ---- 复制功能 ----
+
         function handleCopy(e) {
             e.stopPropagation();
             if (!currentVideoSrc) {
@@ -811,7 +792,6 @@
             }
         }
 
-        // ---- 降级复制方案 ----
         function fallbackCopy(text) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
@@ -841,12 +821,8 @@
 
         copyBtn.addEventListener('click', handleCopy);
 
-        /**
-         * 图片加载失败时，替换为同目录下的默认图片
-         * 注意：请在 HTML 同目录下放置 default.jpg 作为默认海报
-         */
+
         function handleImageError(img) {
-            // 防止无限循环
             img.onerror = null;
             img.src = 'other/default.jpg';
         }
@@ -982,9 +958,7 @@
             if (e.key === 'Escape') closeVideo();
         });
 
-        // ============================================================
-        //  鼠标交互：控制影片信息的显隐（鼠标不动3秒消失）
-        // ============================================================
+
 
         pop.addEventListener('mousemove', function(e) {
             if (!isVideoPlaying) return;
@@ -1010,15 +984,13 @@
             }
         });
 
-        // ============================================================
-        //  播放器快捷键：空格 左右 上下 F
-        // ============================================================
+
 
         document.addEventListener('keydown', function(e) {
-            if (pop.style.display !== 'flex') return; // 仅当弹窗显示时
+            if (pop.style.display !== 'flex') return; 
 
             const tag = e.target.tagName.toLowerCase();
-            if (tag === 'input' || tag === 'textarea') return; // 不在输入框中
+            if (tag === 'input' || tag === 'textarea') return; 
 
             const key = e.key;
             let handled = true;
@@ -1067,9 +1039,7 @@
             }
         });
 
-        // ============================================================
-        //  绑定搜索事件
-        // ============================================================
+
 
         searchBox.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
@@ -1083,9 +1053,7 @@
             handleSearch();
         });
 
-        // ============================================================
-        //  初始化渲染
-        // ============================================================
+
 
         renderCurrentPage();
     </script>
