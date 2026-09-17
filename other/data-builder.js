@@ -1,8 +1,7 @@
-// 组装脚本：将三段 base64 拼接后解码为完整 vid
 window.movieList = [];
 
 if (partA.length !== metaList.length || partB.length !== metaList.length || partC.length !== metaList.length) {
-    console.error("分片数量不一致:", partA.length, partB.length, partC.length, metaList.length);
+    console.error("数量不一致:", partA.length, partB.length, partC.length, metaList.length);
 } else {
     for (var i = 0; i < metaList.length; i++) {
         var fullB64 = partA[i] + partB[i] + partC[i];
@@ -10,7 +9,7 @@ if (partA.length !== metaList.length || partB.length !== metaList.length || part
         try {
             realVid = atob(fullB64);
         } catch (e) {
-            console.warn("第" + i + "条解码失败", e);
+            console.warn("第" + i + "解失败", e);
             realVid = "";
         }
         window.movieList.push({
